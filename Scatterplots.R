@@ -2,7 +2,7 @@
 
 #### Presetting ####
 rm(list = ls()) # Clean variable ##* Comment out if Run All
-memory.limit(300000)
+# memory.limit(150000)
 
 
 #### Load packages ####
