@@ -21,5 +21,20 @@ p <- ggplot(data, aes(x=x, y=y)) +
   stat_summary(fun.data=mean_sdl, fun.args = list(mult=1), geom="errorbar", color="red")
 print(p)
 
+#### Export ####
+## Export PDF
+pdf(file = paste0("_Scatterplots.pdf"), width = 7,  height = 7)
+
+print(p)
+
+dev.off()
+
+## Export TIFF
+
+
+## Export JPG
+
+
+
 
 
