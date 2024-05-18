@@ -16,3 +16,16 @@ data <- data.frame(
   y = rnorm(50)
 )
 
+#### Export ####
+## Set Expot ##
+Name_time_wo_micro <- substr(gsub("[- :]", "", as.character(Sys.time())), 1, 14)
+output_dir <- paste0(getwd(), "/Demo_", substr(Name_time_wo_micro, 1, 8))
+if (!dir.exists(output_dir)) {dir.create(output_dir)}
+
+
+## CSV
+write.csv(data, file = paste0(output_dir, "/", Name_time_wo_micro, "_data.csv"), row.names = FALSE)
+## TSV
+
+
+
