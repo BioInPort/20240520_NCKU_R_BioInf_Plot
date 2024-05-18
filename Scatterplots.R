@@ -22,8 +22,13 @@ p <- ggplot(data, aes(x=x, y=y)) +
 print(p)
 
 #### Export ####
+## Set Expot ##
+Name_time_wo_micro <- substr(gsub("[- :]", "", as.character(Sys.time())), 1, 14)
+output_dir <- paste0(getwd(),"/Export_",Name_time_wo_micro)
+if (!dir.exists(output_dir)) {dir.create(output_dir)}
+
 ## Export PDF
-pdf(file = paste0("_Scatterplots.pdf"), width = 7,  height = 7)
+pdf(file = paste0(output_dir,"/",Name_time_wo_micro,"_Scatterplots.pdf"), width = 7,  height = 7)
 
 print(p)
 
