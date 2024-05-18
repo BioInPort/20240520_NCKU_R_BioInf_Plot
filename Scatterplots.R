@@ -35,9 +35,18 @@ print(p)
 dev.off()
 
 ## Export TIFF
+tiff(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplots.tiff"), width = 7, height = 7, units = "in", res = 300)
 
+print(p)
+
+dev.off()
 
 ## Export JPG
+jpeg(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplots.jpg"), width = 7, height = 7, units = "in", res = 300)
+
+print(p)
+
+dev.off()
 
 
 
