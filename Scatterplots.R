@@ -17,11 +17,25 @@ data <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/
 Set_X_Col <- "GeneA"
 Set_Y_Col <- "GeneB"
 
+#### Correlation ####
+correlation <- cor.test(data[[Set_X_Col]], data[[Set_Y_Col]])
+# correlation <- cor.test(data[[Set_X_Col]], data[[Set_Y_Col]], method="spearman")
+r_value <- round(correlation$estimate, 2)
+p_value <- format.pval(correlation$p.value, digits=2)
+
 #### Visualization ####
-p <- ggplot(data, aes_string(x= Set_X_Col, y= Set_Y_Col)) + # p <- ggplot(data, aes(x= GeneA, y= GeneB)) +
-  geom_point() +
-  stat_summary(fun.data=mean_sdl, fun.args = list(mult=1), geom="errorbar", color="red")
-print(p)
+## Basic plot
+plot_scatter_Basic <- ggplot(data, aes_string(x= Set_X_Col, y= Set_Y_Col)) +
+  geom_point()
+print(plot_scatter_Basic)
+
+## Add R value and P-Value
+plot_scatter <- plot_scatter_Basic +
+  geom_smooth(method="lm", se=TRUE, linetype="dashed", color="blue") +
+  annotate("text", x=Inf, y=Inf, label=paste("R =", r_value, "\nP =", p_value), hjust=1.1, vjust=1.1, size=5, color="red")
+print(plot_scatter)
+
+
 
 #### Export ####
 ## Set Expot ##
@@ -33,21 +47,21 @@ if (!dir.exists(output_dir)) {dir.create(output_dir)}
 ## Export PDF
 pdf(file = paste0(output_dir,"/",Name_time_wo_micro,"_Scatterplots.pdf"), width = 7,  height = 7)
 
-print(p)
+print(plot_scatter)
 
 dev.off()
 
 ## Export TIFF
 tiff(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplots.tiff"), width = 7, height = 7, units = "in", res = 300)
 
-print(p)
+print(plot_scatter)
 
 dev.off()
 
 ## Export JPG
 jpeg(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplots.jpg"), width = 7, height = 7, units = "in", res = 300)
 
-print(p)
+print(plot_scatter)
 
 dev.off()
 
