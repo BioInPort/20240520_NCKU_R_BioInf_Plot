@@ -11,13 +11,11 @@ rm(list = ls()) # Clean variables to ensure a fresh environment
 
 
 #### Load Data ####
-## Load data from CSV file
-# mat_CSV <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240518/20240518030902_data_Heatmap.csv", row.names = 1)
-## Load data from TSV file
-# mat_tsv <- read.table("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240518/20240518030902_data_Heatmap.tsv", sep = "\t", header = TRUE, row.names = 1)
+# Load expression data from CSV file
+mat <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240518/20240518033343_data_Heatmap.csv", row.names = 1)
+# Load meta data from CSV file
+annotation_row <- read.table("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240518/20240518033343_data_Heatmap_Annot.tsv", sep = "\t", header = TRUE, row.names = 1)
 
-# Load data from CSV file
-mat <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240518/20240518030902_data_Heatmap.csv", row.names = 1)
 
 # Define columns to be used for plotting
 # Set_X_Col <- "GeneA"
@@ -30,10 +28,16 @@ if(!require("pheatmap")) install.packages("pheatmap"); library(pheatmap) # Insta
 heatmap_basic <- pheatmap(mat)
 
 ## Beautify the heatmap
-heatmap <- pheatmap(mat, cluster_rows=TRUE, cluster_cols=TRUE,
-                    display_numbers=TRUE,
-                    annotation_row=data.frame(Class=sample(letters[1:3], 20, replace=TRUE)),
-                    annotation_colors=list(Class=c("a"="blue", "b"="green", "c"="red")))
+# Define colors for the annotation
+annotation_colors <- list(Class = c("a" = "blue", "b" = "green", "c" = "red"))
+
+# Create the heatmap
+heatmap <- pheatmap(mat,
+                    cluster_rows = TRUE,
+                    cluster_cols = TRUE,
+                    display_numbers = TRUE,
+                    annotation_col = annotation_row,
+                    annotation_colors = annotation_colors)
 
 
 
