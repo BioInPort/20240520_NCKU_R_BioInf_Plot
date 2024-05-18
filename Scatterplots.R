@@ -30,12 +30,24 @@ plot_scatter_Basic <- ggplot(data, aes_string(x= Set_X_Col, y= Set_Y_Col)) +
 print(plot_scatter_Basic)
 
 ## Add R value and P-Value
-plot_scatter <- plot_scatter_Basic +
-  geom_smooth(method="lm", se=TRUE, linetype="dashed", color="blue") +
-  annotate("text", x=Inf, y=Inf, label=paste("R =", r_value, "\nP =", p_value), hjust=1.1, vjust=1.1, size=5, color="red")
+plot_scatter_cor <- plot_scatter_Basic +
+  geom_smooth(method="lm", se=TRUE, linetype="dashed", color="#0066CC") +
+  annotate("text", x = -Inf, y = Inf, label = paste("R =", r_value, "\nP =", p_value), hjust = -0.2, vjust = 1.3, size = 5, color = "#7B7B7B")
+print(plot_scatter_cor)
+
+## Beautify Plot
+plot_scatter <- plot_scatter_cor +
+  ggtitle("Scatter Plot") +
+  theme_bw() +  # 白底
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 16),
+    panel.border = element_rect(color = "black", linewidth = 1.5),  # 黑色粗外框
+    aspect.ratio = 1  # 保持图形为正方形
+  ) # + coord_fixed(ratio = 1)  # 保持图形为正方形
+
 print(plot_scatter)
-
-
 
 #### Export ####
 ## Set Expot ##
@@ -47,6 +59,8 @@ if (!dir.exists(output_dir)) {dir.create(output_dir)}
 ## Export PDF
 pdf(file = paste0(output_dir,"/",Name_time_wo_micro,"_Scatterplots.pdf"), width = 7,  height = 7)
 
+print(plot_scatter_Basic)
+print(plot_scatter_cor)
 print(plot_scatter)
 
 dev.off()
