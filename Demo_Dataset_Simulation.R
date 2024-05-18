@@ -1,4 +1,4 @@
-
+## [Cheatsheets] https://posit.co/resources/cheatsheets/
 
 #### Presetting ####
 rm(list = ls()) # Clean variable ##* Comment out if Run All
