@@ -28,10 +28,10 @@ if (!dir.exists(output_dir)) {dir.create(output_dir)}
 
 
 ## CSV
-write.csv(data, file = paste0(output_dir, "/", Name_time_wo_micro, "_data.csv"), row.names = FALSE)
+write.csv(data, file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Scatterplot_Basic.csv"), row.names = FALSE)
 
 ## TSV
-write.table(data, file = paste0(output_dir, "/", Name_time_wo_micro, "_data.tsv"), sep = "\t", row.names = FALSE)
+write.table(data, file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Scatterplot_Basic.tsv"), sep = "\t", row.names = FALSE)
 
 
 ####*************************************************************************####
@@ -59,7 +59,7 @@ if (!dir.exists(output_dir)) {dir.create(output_dir)}
 write.csv(mat, file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Heatmap_Basic.csv"), row.names = TRUE)
 
 ## TSV
-write.table(data.frame(SamppleID= row.names(annotation_row) ,annotation_row), file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Heatmap_Annot_Basic.tsv"), sep = "\t", row.names = FALSE)
+write.table(data.frame(SamppleID= row.names(annotation_row) ,annotation_row), file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Heatmap_Basic_Annot.tsv"), sep = "\t", row.names = FALSE)
 
 
 ################################################################################
@@ -149,5 +149,20 @@ if (!dir.exists(output_dir)) {dir.create(output_dir)}
 write.csv(mat, file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Heatmap_Pattern.csv"), row.names = TRUE)
 
 ## TSV
-write.table(data.frame(SamppleID= row.names(annotation_col) ,annotation_col), file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Heatmap_Annot_Pattern.tsv"), sep = "\t", row.names = FALSE)
+write.table(data.frame(SamppleID= row.names(annotation_col) ,annotation_col), file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Heatmap_Pattern_Annot.tsv"), sep = "\t", row.names = FALSE)
+
+
+#### Export for Pattern ####
+data <- mat[c("Gene1", "Gene9"), ] %>% t() %>% as.data.frame()
+
+
+## CSV
+write.csv(data.frame(SamppleID= row.names(data) ,data), file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Scatterplot_Pattern.csv"), row.names = FALSE)
+
+## TSV
+write.table(data.frame(SamppleID= row.names(annotation_col) ,annotation_col), file = paste0(output_dir, "/", Name_time_wo_micro, "_data_Scatterplot_Pattern_Annot.tsv"), sep = "\t", row.names = FALSE)
+
+
+
+
 
