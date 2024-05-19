@@ -74,14 +74,14 @@ print(plot_scatter_cor)
 dev.off()
 
 ## Export the beautified plot to a TIFF file
-tiff(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplots.tiff"), width = 5, height = 5, units = "in", res = 300)
+tiff(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplot.tiff"), width = 5, height = 5, units = "in", res = 300)
 
 print(plot_scatter)
 
 dev.off()
 
 ## Export the beautified plot to a JPG file
-jpeg(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplots.jpg"), width = 5, height = 5, units = "in", res = 300)
+jpeg(file = paste0(output_dir, "/", Name_time_wo_micro, "_Scatterplot.jpg"), width = 5, height = 5, units = "in", res = 300)
 
 print(plot_scatter)
 
