@@ -12,16 +12,16 @@ if(!require("ggplot2")) install.packages("ggplot2"); library(ggplot2) # Install 
 
 #### Load Data ####
 ## Load data from CSV file
-# data_csv <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240517/20240517191837_data.csv")
+# data_csv <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240519/20240519105839_data_Scatterplot_Basic.csv")
 ## Load data from TSV file
-# data_tsv <- read.table("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240517/20240517191837_data.tsv", sep = "\t", header = TRUE)
+# data_tsv <- read.table("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240519/20240519105839_data_Scatterplot_Basic.tsv", sep = "\t", header = TRUE)
 
 # Load data from CSV file
-data <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240517/20240517191837_data.csv")
+data <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240519/20240519105839_data_Scatterplot_Basic.csv")
 
 # Define columns to be used for plotting
-Set_X_Col <- "GeneA"
-Set_Y_Col <- "GeneB"
+Set_X_Col <- "Gene1"
+Set_Y_Col <- "Gene2"
 
 #### Correlation ####
 # Calculate correlation between the selected columns
