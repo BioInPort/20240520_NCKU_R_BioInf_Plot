@@ -18,7 +18,7 @@ data <- data.frame(
   y = rnorm(50)
 )
 
-colnames(data) <- c("GeneA","GeneB")
+colnames(data) <- c("Gene1","Gene2")
 
 #### Export ####
 ## Set Expot ##
@@ -107,7 +107,7 @@ for (i in 1:n_genes) {
     b_values <- runif(n_samples_per_group, min = -3, max = -1)
   }
 
-  c_values <- rnorm(n_samples_per_group, mean = 0, sd = 1)
+  c_values <- rnorm(n_samples_per_group, mean = 0, sd = 1.7)
 
   mat[i, annotation_col$Class == "a"] <- a_values
   mat[i, annotation_col$Class == "b"] <- b_values
@@ -116,9 +116,9 @@ for (i in 1:n_genes) {
 
 # Introduce outliers randomly, with absolute values less than ?
 set.seed(456) # Different seed for outliers
-outlier_indices <- sample(1:(n_genes * n_samples), 11) # Randomly select 11 points to be outliers
-mat[outlier_indices] <- ifelse(mat[outlier_indices] > 0, mat[outlier_indices] + sample(1:6, 7, replace = TRUE),
-                               mat[outlier_indices] - sample(1:6, 5, replace = TRUE))
+outlier_indices <- sample(1:(n_genes * n_samples), 17) # Randomly select 11 points to be outliers
+mat[outlier_indices] <- ifelse(mat[outlier_indices] > 0, mat[outlier_indices] + sample(1:3, 9, replace = TRUE),
+                               mat[outlier_indices] - sample(1:3, 9, replace = TRUE))
 
 # Create a basic heatmap
 heatmap_basic <- pheatmap(mat)
@@ -126,6 +126,8 @@ heatmap_basic <- pheatmap(mat)
 # Beautify the heatmap
 # Define colors for the annotation
 annotation_colors <- list(Class = c("a" = "#4a6ac2", "b" = "#32a852", "c" = "#cc5a78"))
+annotation_colors <- list(Class = c("a" = "#8958a3", "b" = "#3b8062", "c" = "#4b4b5c"))
+
 
 # Create the heatmap
 heatmap <- pheatmap(mat,
