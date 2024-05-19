@@ -30,6 +30,7 @@ heatmap_basic <- pheatmap(mat)
 ## Beautify the heatmap
 # Define colors for the annotation
 annotation_colors <- list(Class = c("a" = "#4a6ac2", "b" = "#32a852", "c" = "#cc5a78"))
+annotation_colors <- list(Class = c("a" = "#8958a3", "b" = "#4c9c6f", "c" = "#4b4b5c"))
 
 # Create the heatmap
 heatmap <- pheatmap(mat,
