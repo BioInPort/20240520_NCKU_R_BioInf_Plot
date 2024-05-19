@@ -119,51 +119,16 @@ dev.off()
 #### ============================================================================== ####
 #### Demo ChatGPT ####
 ## Prompt: Please help me change the drawing to Boxplot
-
-## Create a basic boxplot
-plot_boxplot_Basic <- ggplot(data, aes(x = !!sym(Set_class), y = !!sym(Set_Y_Col), fill = !!sym(Set_class))) +
-  geom_boxplot() +
-  geom_jitter(width = 0.2, size = 1.5, alpha = 0.5)  # Add jitter for individual data points
-
-## Beautify the plot by adding title, adjusting text size, and setting aspect ratio
-# Customize the plot
-plot_boxplot <- plot_boxplot_Basic +
-  ggtitle("Boxplot") +
-  theme_bw() +  # White background
-  theme(
-    plot.title = element_text(size = 20, face = "bold"),
-    axis.title = element_text(size = 16),
-    axis.text = element_text(size = 16),
-    panel.border = element_rect(color = "black", linewidth = 1.5),  # Black thick border
-    aspect.ratio = 1  # Ensure the plot is square
-  )
-
-print(plot_boxplot)
-
-#### ANOVA Analysis ####
-#### Load necessary packages ####
 if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
-if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
-if(!require('ggpubr')) {install.packages('ggpubr'); library(ggpubr)}
+if(!require('reshape2')) {install.packages('reshape2'); library(reshape2)}
 
-## ANOVA Analysis
-anova_result <- aov(as.formula(paste(Set_Y_Col, "~", Set_class)), data = data)
-anova_summary <- summary(anova_result)
-anova_p_value <- anova_summary[[1]]["Pr(>F)"][1, 1]
+# Reshape data for boxplot
+data_long <- melt(data, id.vars = "Class", measure.vars = c("Gene1", "Gene2"),
+                  variable.name = "Gene", value.name = "Expression")
 
-#### Visualization ####
-## Create a basic boxplot
-plot_boxplot_Basic <- ggplot(data, aes(x = !!as.name(Set_class), y = !!as.name(Set_Y_Col), fill = !!as.name(Set_class))) +
+# Create boxplot
+plot_boxplot <- ggplot(data_long, aes(x = Gene, y = Expression, fill = Class)) +
   geom_boxplot() +
-  geom_jitter(width = 0.2, size = 1.5, alpha = 0.5)  # Add jitter for individual data points
-
-## Extract ANOVA p-value
-p_value_label <- sprintf("ANOVA p-value: %.3f", anova_p_value)
-
-## Beautify the plot by adding title, adjusting text size, and setting aspect ratio
-# Customize the plot
-plot_boxplot <- plot_boxplot_Basic +
-  ggtitle("Boxplot with ANOVA") +
   theme_bw() +  # White background
   theme(
     plot.title = element_text(size = 20, face = "bold"),
@@ -172,6 +137,48 @@ plot_boxplot <- plot_boxplot_Basic +
     panel.border = element_rect(color = "black", linewidth = 1.5),  # Black thick border
     aspect.ratio = 1  # Ensure the plot is square
   ) +
-  annotate("text", x = 1, y = max(data[[Set_Y_Col]], na.rm = TRUE) * 1.05, label = p_value_label, size = 6, hjust = 0)
+  ggtitle("Boxplot of Gene Expression Levels") +
+  ylab("Expression Levels") +
+  xlab("Genes")
+
+print(plot_boxplot)
+
+
+#### ANOVA Analysis ####
+## Prompt: There are 3 classes, please add the p-value for each Gene.
+if(!require('ggplot2')) {install.packages('ggplot2'); library(ggplot2)}
+if(!require('reshape2')) {install.packages('reshape2'); library(reshape2)}
+if(!require('dplyr')) {install.packages('dplyr'); library(dplyr)}
+
+# Reshape data for boxplot
+data_long <- melt(data, id.vars = "Class", measure.vars = c("Gene1", "Gene2"),
+                  variable.name = "Gene", value.name = "Expression")
+
+# Calculate p-values for each gene
+p_values <- data_long %>%
+  group_by(Gene) %>%
+  summarise(p_value = format.pval(anova(lm(Expression ~ Class))$`Pr(>F)`[1], digits = 3))
+
+# Create boxplot
+plot_boxplot <- ggplot(data_long, aes(x = Gene, y = Expression, fill = Class)) +
+  geom_boxplot() +
+  theme_bw() +  # White background
+  theme(
+    plot.title = element_text(size = 20, face = "bold"),
+    axis.title = element_text(size = 16),
+    axis.text = element_text(size = 16),
+    panel.border = element_rect(color = "black", linewidth = 1.5),  # Black thick border
+    aspect.ratio = 1  # Ensure the plot is square
+  ) +
+  ggtitle("Boxplot of Gene Expression Levels") +
+  ylab("Expression Levels") +
+  xlab("Genes")
+
+# Add p-values to the plot
+for (i in 1:nrow(p_values)) {
+  plot_boxplot <- plot_boxplot +
+    annotate("text", x = i, y = max(data_long$Expression) * 1.05,
+             label = paste("p =", p_values$p_value[i]), size = 5, hjust = 0.5)
+}
 
 print(plot_boxplot)
