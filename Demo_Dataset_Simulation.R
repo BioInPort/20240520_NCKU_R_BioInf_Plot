@@ -73,7 +73,7 @@ set.seed(123)
 
 # Number of genes and samples
 n_genes <- 20
-n_samples_per_group <- 10
+n_samples_per_group <- 4
 n_groups <- 3
 n_samples <- n_samples_per_group * n_groups
 

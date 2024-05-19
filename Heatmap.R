@@ -12,9 +12,9 @@ rm(list = ls()) # Clean variables to ensure a fresh environment
 
 #### Load Data ####
 # Load expression data from CSV file
-mat <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240519/20240519105839_data_Heatmap_Pattern.csv", row.names = 1)
+mat <- read.csv("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240519/20240519115058_data_Heatmap_Pattern.csv", row.names = 1)
 # Load meta data from CSV file
-annotation_row <- read.table("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240519/20240519105839_data_Heatmap_Pattern_Annot.tsv", sep = "\t", header = TRUE, row.names = 1)
+annotation_row <- read.table("D:/Dropbox/##_GitHub/##_BioInPort/20240520_NCKU_R_BioInf_Plot/Demo_20240519/20240519115058_data_Heatmap_Pattern_Annot.tsv", sep = "\t", header = TRUE, row.names = 1)
 
 
 # Define columns to be used for plotting
